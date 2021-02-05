@@ -7,29 +7,55 @@
 </head>
 
 <body>
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
+
     <div style="text-align: center;">
-        <progress id="file" max="20000" value="7000" style="height: 50px; width: 300px;">
+        <progress id="file" style="height: 2vh;width: 50vw;">
         </progress>
-        <p>目前筹款数额7000/20000</p>
-        <table border="1" style="text-align:center;margin:auto">
+        <p id="money" style="font-size: x-large;"></p>
+        <table id="donator" style="text-align:center;margin:auto;font-size: x-large;">
             <tr>
-                <th> 捐助者</th>
+                <th>捐助者</th>
                 <th>捐助金额</th>
                 <th>捐助时间</th>
             </tr>
-            <tr>
-                <th> example1 </th>
-                <th> 100</th>
-                <th> 20210101</th>
-            </tr>
-            <tr>
-                <th> example2 </th>
-                <th> 1000</th>
-                <th> 20210101</th>
-            </tr>
         </table>
     </div>
-
+    <script>
+        AV.init({
+            appId: "OwNd3b8n9D9DYb3ApIeQk5FD-9Nh9j0Va",
+            appKey: "3djw6bxOwueACjIh6COzUz80",
+            serverURL: "https://kouapi.wznmickey.com"
+        });
+        tableNode = document.getElementById("donator");
+        var donator_num = 0;
+        var donatedmoney = 0;
+        var aimmoney = 0;
+        const Qmoney = new AV.Query('Money');
+        Qmoney.find().then((money) => {
+            aimmoney = money[0].get('money');
+        });
+        const Qdonator = new AV.Query('donator');
+        Qdonator.count().then((count) => {
+            donator_num = count;
+            Qdonator.ascending('time');
+            Qdonator.find().then((money) => {
+                for (var i = 0; i < donator_num; i++) {
+                    donatedmoney = donatedmoney + money[i].get('money');
+                    var trNode = tableNode.insertRow();
+                    var tdNode = trNode.insertCell();
+                    tdNode.innerHTML = money[i].get('Name');
+                    var tdNode = trNode.insertCell();
+                    tdNode.innerHTML = money[i].get('money');
+                    var tdNode = trNode.insertCell();
+                    tdNode.innerHTML = money[i].get('time').getFullYear() + "." + (money[i].get('time').getMonth() + 1) + "." + money[i].get('time').getDate();
+                } 
+                document.getElementById("money").innerHTML = "当前金额：" + donatedmoney + "/" + aimmoney;
+                document.getElementById("file").max = aimmoney;
+                document.getElementById("file").value = donatedmoney;
+            });
+        });
+    </script>
 </body>
 
 </html>
