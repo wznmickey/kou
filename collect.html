@@ -11,17 +11,17 @@
     <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
 
-    <div style="text-align: center;">
+    <div>
         <div>
             <p>
-            <p style="display: inline; height:20px">请填写名字</p>
+            <p style="display: inline; height:20px">请填写姓名</p>
             <input type="text" id="name" style="display: inline; height:20px "></input>
             <input type="checkbox" id="anonymous" style="display: inline;">匿名</input>
             </p>
             <p>
             <p style="display: inline;height:20px">请填写金额</p>
             <input type="number" id="money" style="display: inline;height:20px " oninput="tochinese()"></input>
-            <p id="chinesemoney" style="display: inline;"></p>
+            <p id="chinesemoney"></p>
             </p>
             <p>
             <p style="display: inline;height:20px">请填写日期</p>
@@ -67,7 +67,7 @@
             if (delta >= 3) document.getElementById("datechecker").innerHTML = Nzh.cn.encodeS(delta) + "天前";
         }
         function tochinese() {
-            document.getElementById("chinesemoney").innerHTML = Nzh.cn.encodeS(document.getElementById("money").value) + "元";
+            document.getElementById("chinesemoney").innerHTML = Nzh.cn.toMoney(document.getElementById("money").value);
             if (document.getElementById("money").value >= 0) moneyokay = true;
             else {
                 document.getElementById("chinesemoney").innerHTML = "<em>请检查</em>";
@@ -88,7 +88,7 @@
             if (document.getElementById("name").value != "") nameokay = true;
             else nameokay = false;
             if (nameokay == true && dateokay == true && moneyokay == true) {
-                var message = confirm("你的信息如下：\n名字：" + document.getElementById("name").value + "\n金额：" + Nzh.cn.encodeS(document.getElementById("money").value) + "元\n日期：" + new Date(document.getElementById("date").value).getFullYear() + "年" + (new Date(document.getElementById("date").value).getMonth() + 1) + "月" + new Date(document.getElementById("date").value).getDate() + "日" + "（即" + document.getElementById("datechecker").innerHTML + "）");
+                var message = confirm("你的信息如下：\n名字：" + document.getElementById("name").value + "\n金额：" + Nzh.cn.toMoney(document.getElementById("money").value) + "\n日期：" + new Date(document.getElementById("date").value).getFullYear() + "年" + (new Date(document.getElementById("date").value).getMonth() + 1) + "月" + new Date(document.getElementById("date").value).getDate() + "日" + "（即" + document.getElementById("datechecker").innerHTML + "）");
                 if (message == true) {
                     const Donator = AV.Object.extend('donator');
                     const donator = new Donator();
