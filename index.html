@@ -3,16 +3,15 @@
 
 <head>
     <title>扣</title>
-
 </head>
 
 <body>
     <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
-
     <div style="text-align: center;">
         <progress id="file" style="height: 2vh;width: 50vw;">
         </progress>
-        <p id="money" style="font-size: x-large;"></p>
+        <p id="money" style="font-size: x-large;">正在加载</p>
+        <button id="collect" onclick="collect()">填写信息</button>
         <table id="donator" style="text-align:center;margin:auto;font-size: x-large;">
             <tr>
                 <th>捐助者</th>
@@ -22,6 +21,9 @@
         </table>
     </div>
     <script>
+        function collect() {
+            window.location.href = "./collect.html";
+        }
         AV.init({
             appId: "OwNd3b8n9D9DYb3ApIeQk5FD-9Nh9j0Va",
             appKey: "3djw6bxOwueACjIh6COzUz80",
@@ -46,10 +48,10 @@
                     var tdNode = trNode.insertCell();
                     tdNode.innerHTML = money[i].get('Name');
                     var tdNode = trNode.insertCell();
-                    tdNode.innerHTML = money[i].get('money');
+                    tdNode.innerHTML = money[i].get('money') + "元";
                     var tdNode = trNode.insertCell();
-                    tdNode.innerHTML = money[i].get('time').getFullYear() + "." + (money[i].get('time').getMonth() + 1) + "." + money[i].get('time').getDate();
-                } 
+                    tdNode.innerHTML = money[i].get('time').getFullYear() + "年" + (money[i].get('time').getMonth() + 1) + "月" + money[i].get('time').getDate() + "日";
+                }
                 document.getElementById("money").innerHTML = "当前金额：" + donatedmoney + "/" + aimmoney;
                 document.getElementById("file").max = aimmoney;
                 document.getElementById("file").value = donatedmoney;

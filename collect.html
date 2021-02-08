@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>收集</title>
+</head>
+
+<body>
+    <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
+    <script src="../dist/nzh.js"></script>
+    <div style="text-align: center;">
+        <div>
+            <p>
+            <p style="display: inline; height:20px">请填写名字</p>
+            <input type="text" id="name" style="display: inline; height:20px "></input>
+            <input type="checkbox" id="anonymous" style="display: inline;">匿名</input>
+            </p>
+            <p>
+            <p style="display: inline;height:20px">请填写金额</p>
+            <input type="number" id="money" style="display: inline;height:20px " oninput="tochinese()"></input>
+            <p id="chinesemoney" style="display: inline;"></p>
+            </p>
+            <p>
+            <p style="display: inline;height:20px">请填写日期</p>
+            <input type="date" id="date" style="display: inline;height:20px" oninput="checkdate()"></input>
+            <p id="datechecker" style="display: inline;"></p>
+            </p>
+        </div>
+        <div>
+            <button id="commit" onclick="commit()">提交</button>
+        </div>
+    </div>
+    <script>
+        AV.init({
+            appId: "OwNd3b8n9D9DYb3ApIeQk5FD-9Nh9j0Va",
+            appKey: "3djw6bxOwueACjIh6COzUz80",
+            serverURL: "https://kouapi.wznmickey.com"
+        });
+        var nameokay = false;
+        var moneyokay = false;
+        var dateokay = false;
+        var date_now = new Date();
+        var year = date_now.getFullYear();
+        var month = date_now.getMonth() + 1 < 10 ? "0" + (date_now.getMonth() + 1) : (date_now.getMonth() + 1);
+        var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate();
+        document.getElementById("date").max = year + "-" + month + "-" + date;
+        function checkdate() {
+            var date_now = new Date();
+            var year = date_now.getFullYear();
+            var month = date_now.getMonth() + 1 < 10 ? "0" + (date_now.getMonth() + 1) : (date_now.getMonth() + 1);
+            var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate();
+            var now = new Date();
+            var today = new Date(Date.UTC(now.getFullYear(), (now.getMonth()), now.getDate()));
+            var input = document.getElementById("date").value;
+            var delta = (today - new Date(input)) / (24 * 3600 * 1000);
+            dateokay = true;
+            if (delta < 0) {
+                document.getElementById("datechecker").innerHTML = "<em>今日为" + year + "年" + month + "月" + date + "日，请确认填写日期</em>";
+                dateokay = false;
+            }
+            if (delta == 0) document.getElementById("datechecker").innerHTML = "今天";
+            if (delta == 1) document.getElementById("datechecker").innerHTML = "昨天";
+            if (delta == 2) document.getElementById("datechecker").innerHTML = "前天";
+            if (delta >= 3) document.getElementById("datechecker").innerHTML = Nzh.cn.encodeS(delta) + "天前";
+        }
+        function tochinese() {
+            document.getElementById("chinesemoney").innerHTML = Nzh.cn.encodeS(document.getElementById("money").value) + "元";
+            if (document.getElementById("money").value >= 0) moneyokay = true;
+            else {
+                document.getElementById("chinesemoney").innerHTML = "<em>请检查</em>";
+                moneyokay = false;
+            }
+        }
+        document.getElementById("anonymous").addEventListener('change', (event) => {
+            if (document.getElementById("anonymous").checked == true) {
+                document.getElementById("name").value = `匿名`;
+                document.getElementById("name").readOnly = true;
+            }
+            else {
+                document.getElementById("name").readOnly = false;
+                document.getElementById("name").value = "";
+            }
+        });
+        function commit() {
+            if (document.getElementById("name").value != "") nameokay = true;
+            else nameokay = false;
+            if (nameokay == true && dateokay == true && moneyokay == true) {
+                var message = confirm("你的信息如下：\n名字：" + document.getElementById("name").value + "\n金额：" + Nzh.cn.encodeS(document.getElementById("money").value) + "元\n日期：" + new Date(document.getElementById("date").value).getFullYear() + "年" + (new Date(document.getElementById("date").value).getMonth() + 1) + "月" + new Date(document.getElementById("date").value).getDate() + "日" + "（即" + document.getElementById("datechecker").innerHTML + "）");
+                if (message == true) {
+                    const Donator = AV.Object.extend('donator');
+                    const donator = new Donator();
+                    const name = document.getElementById("name").value;
+                    const money = document.getElementById("money").value * 1;
+                    const date = new Date(document.getElementById("date").value);
+                    donator.set('Name', name);
+                    donator.set('money', money);
+                    donator.set('time', date);
+                    donator.save().then((donator) => {
+                        var newmessage = alert("成功");
+                        window.location.href = ".";
+                    }, (error) => {
+                        var newmessage = alert("出错，请检查。");
+                    });
+                }
+            }
+            else {
+                var message = alert("未填写完整");
+            }
+        }
+    </script>
+</body>
+
+</html>
