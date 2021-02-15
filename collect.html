@@ -92,7 +92,7 @@
                 nameokay = false;
             if (nameokay == true && dateokay == true && moneyokay == true) {
                 var message =
-                    confirm("你的信息如下：\n名字：" + document.getElementById("name").value +
+                    confirm("你的信息如下：\n姓名：" + document.getElementById("name").value +
                         "\n金额：" + Nzh.cn.toMoney(document.getElementById("money").value) + "\n日期：" + new Date(document.getElementById("date").value).getFullYear() + "年" + (new Date(document.getElementById("date").value).getMonth() + 1) + "月" + new Date(document.getElementById("date").value).getDate() +
                         "日" + "（即" + document.getElementById("datechecker").innerHTML + "）");
                 if (message == true) {
