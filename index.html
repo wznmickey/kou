@@ -13,12 +13,12 @@
         <p id="money" style="font-size:3em">正在加载</p>
         <p><img src="img/logo.png"></p>
         <div style="display: flex;justify-content: center;align-items: center; ">
-            <div>
-                <img src="img/wx.jpg" style="height: 25vh">
-                <p style="font-size: 4em">微&emsp;信</p>
+            <div style="margin-right:4vw">
+                <img src="img/wx.jpg" style="max-height: 40vw;height:20vh">
+                <p style="font-size: 4em">微信</p>
             </div>
-            <div>
-                <img src="img/zfb.jpg" style="height: 25vh">
+            <div style="margin-left:4vw">
+                <img src="img/zfb.jpg" style="max-height: 40vw;height:20vh">
                 <p style="font-size: 4em">支付宝</p>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     var tdNode = trNode.insertCell();
                     tdNode.innerHTML = money[i].get('time').getFullYear() + "年" + (money[i].get('time').getMonth() + 1) + "月" + money[i].get('time').getDate() + "日";
                 }
-                document.getElementById("money").innerHTML = "当前金额：" + donatedmoney + "/" + aimmoney;
+                document.getElementById("money").innerHTML = "当前金额：" + donatedmoney.toFixed(2) + "/" + aimmoney;
                 document.getElementById("file").max = aimmoney;
                 document.getElementById("file").value = donatedmoney;
             });
