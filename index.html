@@ -10,25 +10,23 @@
     <div style="text-align: center;">
         <progress id="file" style="height: 2vh;width: 50vw;">
         </progress>
-        <p id="money" style="font-size:3em">正在加载</p>
+        <p id="money" style="font-size:3em;margin:0px;">正在加载</p>
         <p><img src="img/logo.png"></p>
-        <p>
-            <button value="微信" onclick="wechatpay()" style="font-size: xx-large;">微信二维码</button>
-            <button value="支付宝" onclick="alipay()" style="font-size: xx-large;">支付宝二维码</button>
-        </p>
-        <!--  
+
         <div style="display: flex;justify-content: center;align-items: center; ">
-            <div style="margin-right:4vw">
-                <img src="img/wx.jpg" style="max-height: 40vw;height:20vh">
-                <p style="font-size: 4em">微信</p>
+            <div id="wechatpay">
+                <img src="img/wx.jpg" style="max-height: 70vw;height:30vh">
+                <p style="font-size: 4em;margin:0px;">微信</p>
             </div>
-            <div style="margin-left:4vw">
-                <img src="img/zfb.jpg" style="max-height: 40vw;height:20vh">
-                <p style="font-size: 4em">支付宝</p>
+            <div id="alipay">
+                <img src="img/zfb.jpg" style="max-height: 70vw;height:30vh">
+                <p style="font-size: 4em;margin:0px;">支付宝</p>
             </div>
-        </div
-        -->
-        <button id="collect" onclick="collect()" style="font-size: xx-large;">填写信息</button>
+        </div>
+        <p>
+            <button id="switchpay" value="微信" onclick="switchpay()" style="font-size: xx-large;">微信二维码</button>
+        </p>
+        <button id="collect" onclick="collect()" style="font-size: xx-large;margin:0px;">填写信息</button>
         <table id="donator" style="text-align:center;margin:auto;font-size: xx-large;">
             <tr>
                 <th>&emsp;&emsp;捐助者&emsp;&emsp;</th>
@@ -38,10 +36,21 @@
         </table>
     </div>
     <script>
+        var pay_way = 0;
+        /*
+            0-wechatpay;
+            1-alipay;
+        */
+        if (pay_way == 0) { document.getElementById("wechatpay").hidden = false; document.getElementById("alipay").hidden = true; document.getElementById("switchpay").innerHTML = "切换至支付宝二维码"; }
+        if (pay_way == 1) { document.getElementById("alipay").hidden = false; document.getElementById("wechatpay").hidden = true; document.getElementById("switchpay").innerHTML = "切换至微信二维码"; }
+        function switchpay() {
+            pay_way = (pay_way + 1) % 2;
+            if (pay_way == 0) { document.getElementById("wechatpay").hidden = false; document.getElementById("alipay").hidden = true; document.getElementById("switchpay").innerHTML = "切换至支付宝二维码"; }
+            if (pay_way == 1) { document.getElementById("alipay").hidden = false; document.getElementById("wechatpay").hidden = true; document.getElementById("switchpay").innerHTML = "切换至微信二维码"; }
+        }
         function alipay() {
             window.location.href = "./img/zfb.jpg";
         }
-
         function wechatpay() {
             window.location.href = "./img/wx.jpg";
         }
