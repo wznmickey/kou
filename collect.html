@@ -2,37 +2,52 @@
 <html lang="zh-CN">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <title>收集</title>
 </head>
 
-<body>
+<body style="background-color:darkslategray">
     <script src="dist/nzh.js"></script>
     <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
-
-    <div>
-        <div>
-            <p>
-                <p style="display: inline; font-size: xx-large;">请填写姓名</p>
-                <input type="text" id="name" style="display: inline;font-size: xx-large; "></input>
-                <input type="checkbox" id="anonymous" style="display: inline;font-size: xx-large;"></input>
-                <p style="display: inline;font-size: xx-large;">匿名</p>
-            </p>
-            <p>
-                <p style="display: inline;font-size: xx-large;">请填写金额</p>
-                <input type="number" id="money" style="display: inline;font-size: xx-large; " oninput="tochinese()"></input>
-                <p id="chinesemoney" style="font-size: xx-large;"></p>
-            </p>
-            <p>
-                <p style=" display: inline;font-size: xx-large; ">请填写日期</p>
-                <input type="date" id="date" style=" display: inline; font-size: xx-large;" oninput="checkdate()"></input>
-                <p id="datechecker" style=" display: inline;font-size: xx-large; "></p>
-            </p>
+    <form class="bs-example bs-example-form" data-example-id="simple-input-groups"
+        style="width:70%;margin:auto;max-width:700px">
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">请填写姓名</span>
+            <input type="text" class="form-control" id="name" required autofocus>
+            <span class="input-group-addon">
+                <input type="checkbox" id="anonymous">
+                匿名
+            </span>
         </div>
-        <div>
-            <button id="commit" onclick=" commit()" style="font-size: xx-large; ">提交</button>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">请填写金额</span>
+            <input type="number" class="form-control" id="money" oninput="tochinese()" required>
+            <span class="input-group-addon" id="chinesemoney">
         </div>
-    </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">请填写日期</span>
+            <input type="date" id="date" class="form-control" oninput="checkdate()" required>
+            <span class="input-group-addon" id="datechecker">
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <button class="btn btn-success" onclick="commit()">提交</button>
+        </div>
+    </form>
     <script>
         AV.init({
             appId: "OwNd3b8n9D9DYb3ApIeQk5FD-9Nh9j0Va",
@@ -103,7 +118,7 @@
                         document.getElementById("name").value;
                     const money = document.getElementById("money").value * 1;
                     const date = new
-                    Date(document.getElementById("date").value);
+                        Date(document.getElementById("date").value);
                     donator.set('Name', name);
                     donator.set('money', money);
                     donator.set('time', date);

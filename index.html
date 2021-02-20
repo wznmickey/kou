@@ -2,38 +2,56 @@
 <html lang="zh-CN">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>扣</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
     <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
     <div style="text-align: center;">
-        <progress id="file" style="height: 2vh;width: 50vw;">
-        </progress>
-        <p id="money" style="font-size:3em;margin:0px;">正在加载</p>
-        <p><img src="img/logo.png"></p>
-
+        <img src="img/logo.png" class="img-circle" style="text-align: left; margin-top:2vh">
+        <div class="progress" style="margin-left:5vw;margin-right:5vw;margin-top:2vh;margin-bottom: 2vh;">
+            <p id="money" style="position:absolute;text-align: center;width: 90%;">正在加载</p>
+            <div id="file" class="progress-bar progress-bar-striped active progress-bar-success" role="progressbar"
+                style="position:absolute">
+            </div>
+        </div>
         <div style="display: flex;justify-content: center;align-items: center; ">
             <div id="wechatpay">
                 <img src="img/wx.jpg" style="max-height: 70vw;height:30vh">
-                <p style="font-size: 4em;margin:0px;">微信</p>
+                <p>微信二维码</p>
             </div>
             <div id="alipay">
                 <img src="img/zfb.jpg" style="max-height: 70vw;height:30vh">
-                <p style="font-size: 4em;margin:0px;">支付宝</p>
+                <p>支付宝二维码</p>
             </div>
         </div>
         <p>
-            <button id="switchpay" value="微信" onclick="switchpay()" style="font-size: xx-large;">微信二维码</button>
+            <button type="button" class="btn btn-info" id="switchpay" value="微信" onclick="switchpay()">微信二维码</button>
         </p>
-        <button id="collect" onclick="collect()" style="font-size: xx-large;margin:0px;">填写信息</button>
-        <table id="donator" style="text-align:center;margin:auto;font-size: xx-large;">
+        <p>
+            <button type="button" class="btn btn-primary" onclick="collect()" id="collect">填写信息</button>
+        </p>
+
+        <table class="table table-striped table-bordered table-hover" id="donator"
+            style="text-align:center;width:70%;margin:auto;">
             <tr>
-                <th>&emsp;&emsp;捐助者&emsp;&emsp;</th>
-                <th>&emsp;&emsp;捐助金额&emsp;&emsp;</th>
-                <th>&emsp;&emsp;捐助时间&emsp;&emsp;</th>
+                <th style="text-align: center;">捐赠者</th>
+                <th style="text-align: center;">捐赠金额</th>
+                <th style="text-align: center;">捐赠时间</th>
             </tr>
         </table>
+
     </div>
     <script>
         var pay_way = 0;
@@ -87,6 +105,7 @@
                     tdNode.innerHTML = money[i].get('time').getFullYear() + "年" + (money[i].get('time').getMonth() + 1) + "月" + money[i].get('time').getDate() + "日";
                 }
                 document.getElementById("money").innerHTML = "当前金额：" + donatedmoney.toFixed(2) + "/" + aimmoney;
+                document.getElementById("file").style = "width:" + donatedmoney / aimmoney * 100 + "%";
                 document.getElementById("file").max = aimmoney;
                 document.getElementById("file").value = donatedmoney;
             });
