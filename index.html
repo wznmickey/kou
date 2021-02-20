@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>扣</title>
+    <title>扣动未来</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
@@ -28,23 +28,28 @@
         </div>
         <div style="display: flex;justify-content: center;align-items: center; ">
             <div id="wechatpay">
+                <br>
+                <span class="label label-warning" style="font-size: x-large;">微信二维码</span>
+                <br>
+                <br>
                 <img src="img/wx.jpg" style="max-height: 70vw;height:30vh">
-                <p>微信二维码</p>
             </div>
             <div id="alipay">
+                <br>
+                <span class="label label-warning" style="font-size: x-large;">支付宝二维码</span>
+                <br>
+                <br>
                 <img src="img/zfb.jpg" style="max-height: 70vw;height:30vh">
-                <p>支付宝二维码</p>
             </div>
         </div>
         <p>
-            <button type="button" class="btn btn-info" id="switchpay" value="微信" onclick="switchpay()">微信二维码</button>
+            <button type="button" class="btn btn-primary" id="switchpay" value="微信" onclick="switchpay()">微信二维码</button>
         </p>
         <p>
-            <button type="button" class="btn btn-primary" onclick="collect()" id="collect">填写信息</button>
+            <button type="button" class="btn btn-success" onclick="collect()" id="collect">填写信息</button>
         </p>
-
         <table class="table table-striped table-bordered table-hover" id="donator"
-            style="text-align:center;width:70%;margin:auto;">
+            style="text-align:center;width:90%;margin:auto;max-width:700px">
             <tr>
                 <th style="text-align: center;">捐赠者</th>
                 <th style="text-align: center;">捐赠金额</th>

@@ -13,7 +13,7 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <title>收集</title>
+    <title>提交</title>
 </head>
 
 <body style="background-color:darkslategray">
@@ -21,9 +21,9 @@
     <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.9.0/dist/av-min.js"></script>
     <form class="bs-example bs-example-form" data-example-id="simple-input-groups"
-        style="width:70%;margin:auto;max-width:700px">
+        style="width:90%;margin:auto;max-width:700px">
         <br>
-        <div class="input-group">
+        <div class="input-group" style="margin-top:1vh;margin-bottom: 1vh;">
             <span class="input-group-addon">请填写姓名</span>
             <input type="text" class="form-control" id="name" required autofocus>
             <span class="input-group-addon">
@@ -32,16 +32,25 @@
             </span>
         </div>
         <br>
-        <div class="input-group">
+        <div class="input-group" style="margin-top:1vh;margin-bottom: 1vh;">
             <span class="input-group-addon">请填写金额</span>
             <input type="number" class="form-control" id="money" oninput="tochinese()" required>
-            <span class="input-group-addon" id="chinesemoney">
+            <span class="input-group-addon">元</span>
+        </div>
+        <div class="input-group" style="margin-top:1vh;margin-bottom: 1vh;">
+            <span class="input-group-addon"></span>
+            <span class="input-group-addon" id="chinesemoney">&emsp;</span>
+            <span class="input-group-addon"></span>
         </div>
         <br>
-        <div class="input-group">
+        <div class="input-group" style="margin-top:1vh;margin-bottom: 1vh;">
             <span class="input-group-addon">请填写日期</span>
             <input type="date" id="date" class="form-control" oninput="checkdate()" required>
-            <span class="input-group-addon" id="datechecker">
+        </div>
+        <div class="input-group" style="margin-top:1vh;margin-bottom: 1vh;">
+            <span class="input-group-addon"></span>
+            <span class="input-group-addon" id="datechecker">&emsp;</span>
+            <span class="input-group-addon"></span>
         </div>
         <br>
         <div style="text-align: center;">
